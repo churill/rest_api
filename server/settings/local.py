@@ -17,7 +17,12 @@ ALLOWED_HOSTS = []
 DATABASES = {
     'default': env.db()
 }
-DATABASES['default'].update({'OPTIONS': {'driver': env('DATABASE_OPTIONS')}})
+DATABASES['default'].update({
+    'OPTIONS': {
+        'driver': env('DATABASE_OPTIONS1'),
+        'extra_params': env('DATABASE_OPTIONS2')
+    }
+})
 
 import pprint
 pprint.pprint(DATABASES)
