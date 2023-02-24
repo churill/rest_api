@@ -1,6 +1,12 @@
 import os
 import datetime
 
+import django
+from django.utils.encoding import smart_str
+django.utils.encoding.smart_text = smart_str
+from django.utils.translation import gettext
+django.utils.translation.ugettext = gettext
+
 import environ
 
 env = environ.Env(DEBUG=(bool, False))
@@ -39,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party
+    'rest_framework',
+    'rest_framework.authtoken',
 
     # My Applications
     'accounts.apps.AccountsConfig',
@@ -130,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ja'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'ASIA/TOKYO'
 
 USE_I18N = True
 
@@ -161,3 +169,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ########################
 # Application settings #
 ########################
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=5),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(seconds=10),
+}

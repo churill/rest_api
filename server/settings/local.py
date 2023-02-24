@@ -24,9 +24,6 @@ DATABASES['default'].update({
     }
 })
 
-import pprint
-pprint.pprint(DATABASES)
-
 
 ###########
 # Logging #
