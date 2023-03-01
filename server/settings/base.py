@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 
     # My Applications
     'accounts.apps.AccountsConfig',
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -138,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ja'
 
-TIME_ZONE = 'ASIA/TOKYO'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 
@@ -185,6 +187,11 @@ JWT_AUTH = {
     'JWT_SECRET_KEY': SECRET_KEY,
     'JWT_ALGORITHM': 'HS256',
     'JWT_ALLOW_REFRESH': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=5),
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(seconds=10),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=1),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=20),
 }
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+]
