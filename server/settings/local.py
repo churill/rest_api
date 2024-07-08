@@ -24,8 +24,6 @@ DATABASES = {
     },
 }
 
-pprint.pprint(DATABASES)
-
 
 ###########
 # Logging #
