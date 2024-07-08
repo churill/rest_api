@@ -1,5 +1,6 @@
 import os
 import datetime
+import pprint
 
 import django
 from django.utils.encoding import smart_str
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 
     # My Applications
     'accounts.apps.AccountsConfig',
+    'myapp_1.apps.Myapp1Config',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +92,29 @@ WSGI_APPLICATION = 'server.wsgi.application'
 ############
 
 environ.Env.DB_SCHEMES['mssql'] = 'mssql'
-DATABASES = {}
+
+DATABASES = {
+    'default': env.db('DATABASE_URL')
+}
+DATABASES['default'].update({
+    'OPTIONS': {
+        'driver': env('DATABASE_OPTIONS1'),
+        'extra_params': env('DATABASE_OPTIONS2')
+    }
+})
+
+DATABASE_COUNT = env.int('DATABASE_COUNT', default=1)
+
+for i in range(1, DATABASE_COUNT):
+    DATABASES['database_{}'.format(i)] = env.db('DATABASE{}_URL'.format(i))
+    DATABASES['database_{}'.format(i)].update({
+        'OPTIONS': {
+            'driver': env('DATABASE{}_OPTIONS1'.format(i)),
+            'extra_params': env('DATABASE{}_OPTIONS2'.format(i)),
+        }
+    })
+
+DATABASE_ROUTERS = ['server.router.DBRouter']
 
 
 ############
@@ -146,7 +170,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 ################
@@ -194,4 +218,5 @@ JWT_AUTH = {
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
     'http://127.0.0.1:8080',
+    'http://192.168.254.129:8000'
 ]

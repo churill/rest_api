@@ -25,4 +25,5 @@ urlpatterns = [
     path('auth/token/verify/', jwt_views.verify_jwt_token, name='token_verify'),
 
     path('api/accounts/', include('accounts.urls')),
+    path('api/sample/', include('myapp_1.urls')),
 ]

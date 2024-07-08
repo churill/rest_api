@@ -14,11 +14,6 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 # Database #
 ############
 
-DATABASES = {
-    'default': env.db()
-}
-DATABASES['default'].update({'OPTIONS': {'driver': env('DATABASE_OPTIONS')}})
-
 
 ################
 # Static files #

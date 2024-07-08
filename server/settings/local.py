@@ -1,5 +1,6 @@
-from .base import *
+import os.path
 
+from .base import *
 
 #####################
 # Security settings #
@@ -7,22 +8,23 @@ from .base import *
 
 DEBUG = env.get_value('DEBUG', cast=bool, default=False)
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = []
 
 ############
 # Database #
 ############
-
 DATABASES = {
-    'default': env.db()
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR,'db.sqlite3',)
+    },
+    'database_1': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'sampledb.sqlite3', )
+    },
 }
-DATABASES['default'].update({
-    'OPTIONS': {
-        'driver': env('DATABASE_OPTIONS1'),
-        'extra_params': env('DATABASE_OPTIONS2')
-    }
-})
+
+pprint.pprint(DATABASES)
 
 
 ###########
@@ -61,7 +63,7 @@ LOGGING = {
             # Django 本体が出すログ全般を拾うロガー
             'django': {
                 'handlers': ['console'],
-                'level': 'INFO',
+                'level': 'DEBUG',
                 'propagate': False,
             },
             # 発行される SQL 文を出力するための設定
@@ -73,7 +75,6 @@ LOGGING = {
         },
     }
 }
-
 
 ##################
 # Extra settings #

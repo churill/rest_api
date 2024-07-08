@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from .serializers import CustomUserSerializer
@@ -23,3 +24,25 @@ class CustomUserView(APIView):
 
 
 custom_user_view = CustomUserView.as_view()
+
+
+class CustomUserListView(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = CustomUserSerializer
+    queryset = get_user_model().objects.all()
+
+
+custom_user_list_view = CustomUserListView.as_view()
+
+
+class CustomUserDetailView(generics.RetrieveAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = CustomUserSerializer
+    queryset = get_user_model().objects.all()
+    lookup_field = 'user_id'
+    lookup_url_kwarg = 'pk'
+
+
+custom_user_detail_view = CustomUserDetailView.as_view()
+
+
