@@ -1,0 +1,31 @@
+databases:
+  - name: rest_api
+    databaseName: sample_django
+    user: postgres
+    region: singapore
+    plan: free
+
+services:
+  - type: web
+    name: rest_api
+    env: python
+    region: singapore
+    plan: free
+    branch: main
+    healthCheckPath: /
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn server.wsgi --log-file -"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sample_django
+          property: connectionString
+      - key: DATABASE1_URL
+        fromDatabase:
+          name: sample_django
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+
+
+    autoDeploy: true

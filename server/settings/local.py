@@ -13,16 +13,16 @@ DEBUG = env.get_value('DEBUG', cast=bool, default=False)
 ############
 # Database #
 ############
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'db.sqlite3',)
-    },
-    'database_1': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'sampledb.sqlite3', )
-    },
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR,'db.sqlite3',)
+#     },
+#     'database_1': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'sampledb.sqlite3', )
+#     },
+# }
 
 
 ###########

@@ -3,6 +3,7 @@ import datetime
 import django
 import os
 
+import tqdm
 from django.db import models
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings.local')
@@ -66,7 +67,7 @@ def generate_fake_product_name():
 
 
 def create_customer(size):
-    for i in range(size):
+    for i in tqdm.tqdm(range(size)):
         Customer.objects.get_or_create(
             customer_id=i + 1,
             name=fake.company(),
@@ -86,12 +87,12 @@ def create_customer(size):
 
 
 def create_product(size):
-    for i in range(size):
+    for i in tqdm.tqdm(range(size)):
         p_name = generate_fake_product_name()
         Product.objects.get_or_create(
             product_id=i + 1,
-            name=p_name[:40],
-            shortname=p_name[:20],
+            name=p_name[:20],
+            shortname=p_name[:10],
             retail_price=fake.random_int(min=1, max=999),
             unit_price=fake.random_int(min=1, max=999),
             purchase_price=fake.random_int(min=1, max=999),
@@ -121,7 +122,7 @@ def create_purchase_order_details(purchase_order_id):
 
 
 def create_purchase_order(size):
-    for i in range(size):
+    for i in tqdm.tqdm(range(size)):
         date_1 = fake.date_between_dates(
                 date_start=datetime.date(2024,5,1),
                 date_end=datetime.date(2024,7,31)
@@ -199,5 +200,5 @@ if '__main__' == __name__:
     # customer_factory = CustomerFactory.create_batch(1000)
     # purchase_order_details_factory = PurchaseOrderDetailsFactory.create_batch(10000)
     # create_customer(1000)
-    # create_product(5000)
+    create_product(5000)
     create_purchase_order(10000)

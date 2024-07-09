@@ -55,7 +55,7 @@ class Purchase(models.Model):
 
 
 class PurchaseDetails(models.Model):
-    purchase_id = models.IntegerField(primary_key=True)
+    purchase_id = models.ForeignKey(Purchase, on_delete=models.PROTECT, to_field='purchase_id', db_column='purchase_id')
     row_number = models.IntegerField()
     product_id = models.ForeignKey(Product, on_delete=models.PROTECT, to_field='product_id', db_column='product_id')
     unit_price = models.DecimalField(max_digits=19, decimal_places=4)
@@ -85,8 +85,8 @@ class PurchaseOrder(models.Model):
 
 
 class PurchaseOrderDetails(models.Model):
-    purchase_order_id = models.ForeignKey(primary_key=True, to=PurchaseOrder, on_delete=models.CASCADE, to_field='purchase_order_id', db_column='purchase_order_id')
-    row_number = models.IntegerField(primary_key=True)
+    purchase_order_id = models.ForeignKey(to=PurchaseOrder, on_delete=models.CASCADE, to_field='purchase_order_id', db_column='purchase_order_id')
+    row_number = models.IntegerField()
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE, to_field='product_id', db_column='product_id')
     purchase_price = models.DecimalField(max_digits=19, decimal_places=4)
     order_quantity = models.DecimalField(max_digits=19, decimal_places=4)

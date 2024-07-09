@@ -91,28 +91,28 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database #
 ############
 
-environ.Env.DB_SCHEMES['mssql'] = 'mssql'
+# environ.Env.DB_SCHEMES['mssql'] = 'mssql'
 
 DATABASES = {
     'default': env.db('DATABASE_URL')
 }
-DATABASES['default'].update({
-    'OPTIONS': {
-        'driver': env('DATABASE_OPTIONS1'),
-        'extra_params': env('DATABASE_OPTIONS2')
-    }
-})
+# DATABASES['default'].update({
+#     'OPTIONS': {
+#         'driver': env('DATABASE_OPTIONS1'),
+#         'extra_params': env('DATABASE_OPTIONS2')
+#     }
+# })
 
 DATABASE_COUNT = env.int('DATABASE_COUNT', default=1)
 
 for i in range(1, DATABASE_COUNT):
     DATABASES['database_{}'.format(i)] = env.db('DATABASE{}_URL'.format(i))
-    DATABASES['database_{}'.format(i)].update({
-        'OPTIONS': {
-            'driver': env('DATABASE{}_OPTIONS1'.format(i)),
-            'extra_params': env('DATABASE{}_OPTIONS2'.format(i)),
-        }
-    })
+    # DATABASES['database_{}'.format(i)].update({
+    #     'OPTIONS': {
+    #         'driver': env('DATABASE{}_OPTIONS1'.format(i)),
+    #         'extra_params': env('DATABASE{}_OPTIONS2'.format(i)),
+    #     }
+    # })
 
 DATABASE_ROUTERS = ['server.router.DBRouter']
 
@@ -183,6 +183,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 ##################################
