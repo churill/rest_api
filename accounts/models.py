@@ -10,12 +10,24 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out
 
 
 def create_default_site(sender, **kwargs):
-    print(sender)
     Site.objects.get_or_create(
         id=0,
         name='admin',
         permission_level=0,
     )
+
+
+def create_default_superuser(sender, **kwargs):
+    user = get_user_model()
+    try:
+        user.objects.get(user_id=999, username='admin')
+    except user.DoesNotExist:
+        user.objects.create_superuser(
+            user_id=999,
+            username='admin',
+            site=0,
+            password='password',
+        )
 
 
 class CustomUserManager(BaseUserManager):

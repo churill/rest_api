@@ -7,5 +7,6 @@ class AccountsConfig(AppConfig):
     name = 'accounts'
 
     def ready(self):
-        from .models import create_default_site
+        from .models import create_default_site, create_default_superuser
         post_migrate.connect(create_default_site, sender=self)
+        post_migrate.connect(create_default_superuser, sender=self)
