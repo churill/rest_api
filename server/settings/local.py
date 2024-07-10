@@ -41,37 +41,38 @@ LOGGING = {
             'format': '%(asctime)s [%(levelname)s] %(pathname)s:%(lineno)d '
                       '%(message)s'
         },
-        # ハンドラ
-        'handlers': {
-            # コンソール出力用ハンドラ
-            'console': {
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-                'formatter': 'develop',
-            },
+    },
+
+    # ハンドラ
+    'handlers': {
+        # コンソール出力用ハンドラ
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'develop',
         },
-        # ロガー
-        'logger': {
-            # 自作アプリケーション全般のログを拾うロガー
-            '': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
-                'propagate': False,
-            },
-            # Django 本体が出すログ全般を拾うロガー
-            'django': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
-                'propagate': False,
-            },
-            # 発行される SQL 文を出力するための設定
-            'django.db.backends': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
-                'propagate': False,
-            },
+    },
+    # ロガー
+    'logger': {
+        # 自作アプリケーション全般のログを拾うロガー
+        '': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
-    }
+        # Django 本体が出すログ全般を拾うロガー
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        # 発行される SQL 文を出力するための設定
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
 }
 
 ##################
