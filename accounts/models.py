@@ -25,7 +25,7 @@ def create_default_superuser(sender, **kwargs):
         user.objects.create_superuser(
             user_id=999,
             username='admin',
-            site=0,
+            site_id=0,
             password='password',
         )
 
