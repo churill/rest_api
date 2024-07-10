@@ -8,10 +8,9 @@ django.utils.encoding.smart_text = smart_str
 from django.utils.translation import gettext
 django.utils.translation.ugettext = gettext
 
-import environ
+from dotenv import load_dotenv
 
-env = environ.Env(DEBUG=(bool, False))
-env.read_env('.env')
+load_dotenv('../../.env', verbose=True)
 
 
 ###############
@@ -28,9 +27,9 @@ SITE_ID = 1
 # Security #
 ############
 
-DEBUG = False
-SECRET_KEY = env('SECRET_KEY')
-ALLOWED_HOSTS = ['*']
+DEBUG = os.environ.get('DEBUG', False)
+SECRET_KEY = os.environ.get('SECRET_KEY')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
 
 #################
@@ -94,7 +93,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # environ.Env.DB_SCHEMES['mssql'] = 'mssql'
 
 DATABASES = {
-    'default': env.db('DATABASE_URL')
+    'default': os.environ.get('DATABASE_URL')
 }
 # DATABASES['default'].update({
 #     'OPTIONS': {
@@ -103,10 +102,10 @@ DATABASES = {
 #     }
 # })
 
-DATABASE_COUNT = env.int('DATABASE_COUNT', default=1)
+DATABASE_COUNT = os.environ.get('DATABASE_COUNT', default=1)
 
 for i in range(1, DATABASE_COUNT):
-    DATABASES['database_{}'.format(i)] = env.db('DATABASE{}_URL'.format(i))
+    DATABASES['database_{}'.format(i)] = os.environ.get('DATABASE{}_URL'.format(i))
     # DATABASES['database_{}'.format(i)].update({
     #     'OPTIONS': {
     #         'driver': env('DATABASE{}_OPTIONS1'.format(i)),
@@ -217,8 +216,4 @@ JWT_AUTH = {
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=20),
 }
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',
-    'http://127.0.0.1:8080',
-    'http://192.168.254.129:8000'
-]
+CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST').split(',')
