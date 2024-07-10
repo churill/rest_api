@@ -8,9 +8,14 @@ django.utils.encoding.smart_text = smart_str
 from django.utils.translation import gettext
 django.utils.translation.ugettext = gettext
 
-from dotenv import load_dotenv
+import environ
 
-load_dotenv('../../.env', verbose=True)
+
+env = environ.Env()
+
+READ_ENV_FILE = env.bool('DJANGO_SETTINGS_READ_ENV_FILE', default=False)
+if READ_ENV_FILE:
+    env.read_env('.env')
 
 
 ###############
@@ -27,9 +32,9 @@ SITE_ID = 1
 # Security #
 ############
 
-DEBUG = os.environ.get('DEBUG', False)
-SECRET_KEY = os.environ.get('SECRET_KEY')
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+DEBUG = env.bool('DEBUG', False)
+SECRET_KEY = env.get_value('SECRET_KEY')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 #################
@@ -93,19 +98,19 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # environ.Env.DB_SCHEMES['mssql'] = 'mssql'
 
 DATABASES = {
-    'default': os.environ.get('DATABASE_URL')
+    'default': env.db('DATABASE_URL')
 }
 # DATABASES['default'].update({
 #     'OPTIONS': {
-#         'driver': env('DATABASE_OPTIONS1'),
-#         'extra_params': env('DATABASE_OPTIONS2')
+#         'driver': env.get_value('DATABASE_OPTIONS1'),
+#         'extra_params': env.get_value('DATABASE_OPTIONS2')
 #     }
 # })
 
-DATABASE_COUNT = os.environ.get('DATABASE_COUNT', default=1)
+DATABASE_COUNT = env.int('DATABASE_COUNT', default=1)
 
-for i in range(1, int(DATABASE_COUNT)):
-    DATABASES['database_{}'.format(i)] = os.environ.get('DATABASE{}_URL'.format(i))
+for i in range(1, DATABASE_COUNT):
+    DATABASES['database_{}'.format(i)] = env.db('DATABASE{}_URL'.format(i))
     # DATABASES['database_{}'.format(i)].update({
     #     'OPTIONS': {
     #         'driver': env('DATABASE{}_OPTIONS1'.format(i)),
@@ -216,4 +221,4 @@ JWT_AUTH = {
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=20),
 }
 
-CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST', '').split(',')
+CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST')
