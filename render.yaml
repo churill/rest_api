@@ -1,7 +1,7 @@
 databases:
   - name: rest_api
     databaseName: sample_django
-    user: postgres
+    user: user
     region: singapore
     plan: free
 
@@ -14,7 +14,7 @@ services:
     branch: main
     healthCheckPath: /
     buildCommand: "./build.sh"
-    startCommand: "gunicorn server.wsgi --log-file -"
+    startCommand: "gunicorn server.wsgi --log-file -timeout:600"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
