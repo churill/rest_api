@@ -1,5 +1,5 @@
 databases:
-  - name: rest_api
+  - name: sample_django
     databaseName: sample_django
     user: user
     region: singapore
