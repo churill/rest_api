@@ -4,8 +4,13 @@ import os
 import sys
 import environ
 
+env = environ.Env()
+READ_ENV_FILE = env.bool('DJANGO_SETTINGS_READ_ENV_FILE', default=False)
+if READ_ENV_FILE:
+    env.read_env('.env')
 
-debug = os.environ.get('DEBUG', False)
+debug = env.bool('DEBUG', False)
+
 
 def main():
     """Run administrative tasks."""
