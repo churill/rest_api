@@ -44,17 +44,17 @@ LOGGING = {
     # ハンドラ
     'handlers': {
         # ファイル出力用ハンドラ
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'log/app_{}.log'.format(datetime.date.today().strftime("%Y%m%d"))),
-            'formatter': 'production',
-        },
+        # 'file': {
+        #     'level': 'INFO',
+        #     'class': 'logging.FileHandler',
+        #     'filename': os.path.join(BASE_DIR, 'log/app_{}.log'.format(datetime.date.today().strftime("%Y%m%d"))),
+        #     'formatter': 'production',
+        # },
         # コンソール出力用ハンドラ
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'develop',
+            'formatter': 'production',
         },
     },
 
