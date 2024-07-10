@@ -5,12 +5,11 @@ import sys
 import environ
 
 
-env = environ.Env(DEBUG=(bool, False))
-env.read_env(os.path.join(os.getcwd(), '.env'))
+debug = os.environ.get('DEBUG', False)
 
 def main():
     """Run administrative tasks."""
-    if env('DEBUG'):
+    if debug:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings.local')
     else:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings.production')
