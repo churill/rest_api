@@ -14,7 +14,7 @@ services:
     branch: main
     healthCheckPath: /
     buildCommand: "./build.sh"
-    startCommand: "gunicorn server.wsgi --log-file -timeout:600"
+    startCommand: "gunicorn server.wsgi:apprication --timeout 600"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
