@@ -29,7 +29,7 @@ SITE_ID = 1
 
 DEBUG = os.environ.get('DEBUG', False)
 SECRET_KEY = os.environ.get('SECRET_KEY')
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 
 #################
@@ -104,7 +104,7 @@ DATABASES = {
 
 DATABASE_COUNT = os.environ.get('DATABASE_COUNT', default=1)
 
-for i in range(1, DATABASE_COUNT):
+for i in range(1, int(DATABASE_COUNT)):
     DATABASES['database_{}'.format(i)] = os.environ.get('DATABASE{}_URL'.format(i))
     # DATABASES['database_{}'.format(i)].update({
     #     'OPTIONS': {
