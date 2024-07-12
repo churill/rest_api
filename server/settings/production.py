@@ -44,12 +44,12 @@ LOGGING = {
     # ハンドラ
     'handlers': {
         # ファイル出力用ハンドラ
-        # 'file': {
-        #     'level': 'INFO',
-        #     'class': 'logging.FileHandler',
-        #     'filename': os.path.join(BASE_DIR, 'log/app_{}.log'.format(datetime.date.today().strftime("%Y%m%d"))),
-        #     'formatter': 'production',
-        # },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/app_{}.log'.format(datetime.date.today().strftime("%Y%m%d"))),
+            'formatter': 'production',
+        },
         # コンソール出力用ハンドラ
         'console': {
             'level': 'DEBUG',
@@ -62,13 +62,13 @@ LOGGING = {
     'loggers': {
         # 自作アプリケーション全般のログを拾うロガー
         '': {
-            'handlers': ['console'],
+            'handlers': ['file'],
             'level': 'INFO',
             'propagate': False,
         },
         # Django本体が出すログ全般を拾うロガー
         'django': {
-            'handlers': ['console'],
+            'handlers': ['file'],
             'level': 'INFO',
             'propagate': False,
         },
