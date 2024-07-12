@@ -8,24 +8,12 @@ databases:
 services:
   - type: web
     name: rest_api
-    env: python
+    runtime: python
     region: singapore
     plan: free
     branch: main
     healthCheckPath: /
     buildCommand: "./build.sh"
-    startCommand: "gunicorn server.wsgi:apprication --timeout 600"
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: sample_django
-          property: connectionString
-      - key: DATABASE1_URL
-        fromDatabase:
-          name: sample_django
-          property: connectionString
-      - key: SECRET_KEY
-        generateValue: true
-
-
+    startCommand: "gunicorn server.wsgi:application --timeout 600"
     autoDeploy: true
+version: "1"
