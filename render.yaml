@@ -8,12 +8,17 @@ databases:
 services:
   - type: web
     name: rest_api
-    runtime: python
+    env: python
     region: singapore
     plan: free
     branch: main
     healthCheckPath: /
     buildCommand: "./build.sh"
-    startCommand: "gunicorn server.wsgi:application --timeout 600"
+    startCommand: "gunicorn server.wsgi:application"
     autoDeploy: true
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: server.settings.production
+      - key: PYTHONUNBUFFERED
+        value: 1
 version: "1"
