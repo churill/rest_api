@@ -17,7 +17,8 @@ services:
     startCommand: "gunicorn server.wsgi:application"
     autoDeploy: true
     runtime: python
-    port: 6204
+    ports:
+      - 10000: 10000
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: server.settings.production
