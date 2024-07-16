@@ -14,7 +14,7 @@ services:
     branch: main
     healthCheckPath: /
     buildCommand: "./build.sh"
-    startCommand: "gunicorn server.wsgi:application"
+    startCommand: "gunicorn server.wsgi"
     autoDeploy: true
     runtime: python
     ports:
