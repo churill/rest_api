@@ -16,6 +16,8 @@ services:
     buildCommand: "./build.sh"
     startCommand: "gunicorn server.wsgi:application"
     autoDeploy: true
+    runtime: python
+    port: 6204
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: server.settings.production
