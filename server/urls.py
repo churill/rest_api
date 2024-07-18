@@ -14,9 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path, include
 
 from rest_framework_jwt import views as jwt_views
+
+
+def health_check_view(request):
+    return HttpResponse(status=200)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +32,5 @@ urlpatterns = [
 
     path('api/accounts/', include('accounts.urls')),
     path('api/sample/', include('myapp_1.urls')),
+    path('health_check/', health_check_view),
 ]
