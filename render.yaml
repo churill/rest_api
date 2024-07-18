@@ -14,8 +14,7 @@ services:
     branch: main
     healthCheckPath: /
     buildCommand: "./build.sh"
-    startCommand: "gunicorn server.wsgi:application"
-    rootDir: src/server
+    startCommand: "python -m gunicorn server.asgi:application -k uvicorn.workers.UvicornWorker"
     autoDeploy: true
     runtime: python
     envVars:
