@@ -32,5 +32,5 @@ urlpatterns = [
 
     path('api/accounts/', include('accounts.urls')),
     path('api/sample/', include('myapp_1.urls')),
-    path('health_check/', health_check_view),
+    path('', health_check_view),
 ]
