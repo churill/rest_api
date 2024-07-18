@@ -14,11 +14,10 @@ services:
     branch: main
     healthCheckPath: /
     buildCommand: "./build.sh"
-    startCommand: "gunicorn server.wsgi"
+    startCommand: "gunicorn server.wsgi:application"
+    rootDir: src/server
     autoDeploy: true
     runtime: python
-    ports:
-      - 10000: 10000
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: server.settings.production
