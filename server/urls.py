@@ -21,6 +21,7 @@ from rest_framework_jwt import views as jwt_views
 
 
 def health_check_view(request):
+    print('test OK!!')
     return HttpResponse(status=200)
 
 

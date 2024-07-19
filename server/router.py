@@ -21,5 +21,4 @@ class DBRouter:
         appname_split = app_label.split('_')
         if len(appname_split) > 1:
             db_cnt = int(appname_split[1])
-            print(db)
             return db == 'database_{}'.format(db_cnt)

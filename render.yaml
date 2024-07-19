@@ -12,7 +12,6 @@ services:
     region: singapore
     plan: free
     branch: main
-    healthCheckPath: /
     buildCommand: "./build.sh"
     startCommand: "python -m gunicorn server.wsgi:application"
     autoDeploy: true
